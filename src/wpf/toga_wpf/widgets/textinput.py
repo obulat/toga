@@ -13,7 +13,7 @@ class TextInput(Widget):
         self.native.IsReadOnly = value
 
     def set_placeholder(self, value):
-        self.native.Text = self.interface.placeholder
+        self.interface.factory.not_implemented('TextInput.set_placeholder()')
 
     def get_value(self):
         return self.native.Text
@@ -29,7 +29,11 @@ class TextInput(Widget):
 
     def rehint(self):
         self.interface.intrinsic.width = at_least(self.interface.MIN_WIDTH)
-        self.interface.intrinsic.height = at_least(20)
+        if self.native and self.interface._window:
+            wpf_size = WPF.Size(self.interface._window._size[0], self.interface._window._size[1])
+            self.native.Measure(wpf_size)
+            self.interface.intrinsic.height = int(self.native.DesiredSize.Height)
+            self.interface.intrinsic.width = max(self.interface.intrinsic.width, self.native.DesiredSize.Width)
 
     def set_on_change(self, handler):
         pass

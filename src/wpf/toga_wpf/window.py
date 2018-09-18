@@ -28,7 +28,6 @@ class Window:
         self.native = WPF.Window(self)
         self.native.Width, self.native.Height = self.interface._size
         self.native.Content = WPF.Controls.Canvas()
-        self.native.Content.Background = WPF.Media.Brushes.LightSteelBlue
         self.native.SizeChanged += self.wpf_Resize
         self.toolbar_native = None
         self.toolbar_items = None
@@ -60,10 +59,10 @@ class Window:
         self.native.Title = title
 
     def show(self):
-        self.interface.content._impl.rehint()
         self.interface.content.style.layout(self.interface.content, Viewport(0, 0))
-        self.native.MinWidth = int(self.interface.content.layout.width)
-        self.native.MinHeight = int(self.interface.content.layout.height)
+        layout_values = self.interface.content.layout
+        self.native.MinWidth = int(layout_values.width)
+        self.native.MinHeight = int(layout_values.height)
 
         self.interface.content.refresh()
         if self.interface is self.interface.app._main_window:

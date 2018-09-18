@@ -2,7 +2,7 @@ import sys
 
 import toga
 
-from .libs import Threading, WPF, add_handler
+from .libs import Threading, WPF
 from .window import Window
 
 
@@ -25,7 +25,7 @@ class App:
         self.interface.startup()
 
     def create_menus(self):
-        self.interface.factory.not_implemented("[WPF] Create menus")
+        self.interface.factory.not_implemented("Application.create_menus()")
 
     def open_document(self, fileURL):
         '''Add a new document to this app.'''

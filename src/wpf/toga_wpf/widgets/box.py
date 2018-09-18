@@ -6,7 +6,6 @@ from .base import Widget
 class Box(Widget):
     def create(self):
         self.native = WPF.Controls.Canvas()
-        self.native.interface = self.interface
 
     def set_bounds(self, x, y, width, height):
         if self.native:

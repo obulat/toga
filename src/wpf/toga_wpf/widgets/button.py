@@ -25,8 +25,11 @@ class Button(Widget):
         pass
 
     def set_background_color(self, value):
-        self.interface.factory.not_implemented('[WPF] Set background color')
+        self.interface.factory.not_implemented('Button.set_background_color()')
 
     def rehint(self):
-        self.interface.intrinsic.width = at_least(20)
-        self.interface.intrinsic.height = at_least(20)
+
+        if self.native and self.interface._window:
+            wpf_size = WPF.Size(self.interface._window._size[0], self.interface._window._size[1])
+            self.native.Measure(wpf_size)
+            self.interface.intrinsic.height = int(self.native.DesiredSize.Height)
